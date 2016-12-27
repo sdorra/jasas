@@ -58,7 +58,7 @@ export class Container extends React.Component<ContainerProps, any> {
     }
 
     return (
-      <div className="form">
+      <div className="container">
         <h1>Jasas</h1>
         <p>Just another simple authentication service</p>
         {error}
