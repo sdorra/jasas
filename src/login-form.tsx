@@ -1,26 +1,19 @@
-import * as React from "react";
+import * as React from 'react';
+import { AuthenticationForm } from './actions/authentication';
 
 interface Props {
+  form: AuthenticationForm
   authenticate(username: string, password: string): void;
+  change(form: AuthenticationForm): void;
 }
 
-interface State {
-  username: string
-  password: string
-}
-
-export class LoginForm extends React.Component<Props, State> {
+export class LoginForm extends React.Component<Props, {}> {
 
   usernameInput: HTMLInputElement;
 
   constructor(props: Props) {
     super(props);
-    this.state = {
-      username: '',
-      password: ''
-    };
 
-    // This binding is necessary to make `this` work in the callback
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -30,14 +23,14 @@ export class LoginForm extends React.Component<Props, State> {
   }
 
   handleChange(e: any) {
-    let obj: any = {};
-    obj[e.target.name] = e.target.value;
-    this.setState(Object.assign({}, this.state, obj));
+    let object: any = {};
+    object[e.target.name] = e.target.value;
+    this.props.change(Object.assign({}, this.props.form, object));
   }
 
   handleSubmit(e: any) {
     e.preventDefault();
-    this.props.authenticate(this.state.username, this.state.password);
+    this.props.authenticate(this.props.form.username, this.props.form.password);
   }
 
   render() {
@@ -47,12 +40,13 @@ export class LoginForm extends React.Component<Props, State> {
                type="text" 
                name="username" 
                placeholder="username" 
-               value={this.state.username} 
+               value={this.props.form.username} 
                onChange={this.handleChange} />
+               
         <input type="password" 
                name="password" 
                placeholder="password" 
-               value={this.state.password} 
+               value={this.props.form.password} 
                onChange={this.handleChange} />
         <button>login</button>
       </form>

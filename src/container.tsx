@@ -5,7 +5,7 @@ import { Welcome } from './welcome';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { authenticate, logout } from './actions/authentication'
+import { authenticate, logout, changeForm, AuthenticationForm } from './actions/authentication'
 
 interface StateProps {
   loading: boolean;
@@ -13,10 +13,12 @@ interface StateProps {
   error: boolean;
   username: string;
   message: string;
+  form: AuthenticationForm;
 }
 
 interface DispatchProps {
   authenticate(username: string, password: string): void;
+  change(form: AuthenticationForm): void;
   logout(): void;
 }
 
@@ -24,17 +26,19 @@ type ContainerProps = StateProps & DispatchProps;
 
 function mapStateToProps(state: any) {
   return {
-    error: state.error,
-    message: state.message,
-    loading: state.loading,
-    authenticated: state.authenticated,
-    username: state.username
+    error: state.auth.error,
+    message: state.auth.message,
+    loading: state.auth.loading,
+    authenticated: state.auth.authenticated,
+    username: state.auth.username,
+    form: state.auth.form
   }
 }
 
 function mapDispatchToProps(dispatch: any) {
   return {
     authenticate: (username: string, password: string): void => dispatch(authenticate(username, password)),
+    change: (form: AuthenticationForm): void => dispatch(changeForm(form)),
     logout: (): void => dispatch(logout()),
   }
 }
@@ -49,7 +53,7 @@ export class Container extends React.Component<ContainerProps, any> {
     } else if (this.props.authenticated) {
       body = <Welcome username={this.props.username} logout={this.props.logout} />;
     } else {
-      body = <LoginForm authenticate={this.props.authenticate} />;
+      body = <LoginForm form={this.props.form} change={this.props.change} authenticate={this.props.authenticate} />;
     }
 
     let error = <p></p>; 

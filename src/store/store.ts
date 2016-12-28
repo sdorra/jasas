@@ -1,10 +1,12 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import * as createLogger from "redux-logger";
 import AuthenticationReducer  from '../reducers/authentication'
 
 const store = createStore(
-  AuthenticationReducer,
+  combineReducers({
+    auth: AuthenticationReducer
+  }),
   applyMiddleware(promiseMiddleware(), createLogger())
 );
 
