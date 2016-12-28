@@ -19,7 +19,7 @@ import {
   LOGOUT_REJECTED
 } from '../actions/authentication';
 
-export interface AuthenticationState {
+interface AuthenticationState {
   error: boolean
   loading: boolean
   authenticated: boolean
@@ -105,6 +105,8 @@ let authenticationReducer: Reducer<AuthenticationState> = (state = INITIAL_STATE
         error: true, 
         message: "logout failed"
       });
+
+    // form changes
 
     case CHANGE_FORM:
       return Object.assign({}, state, {

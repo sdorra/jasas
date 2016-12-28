@@ -66,10 +66,10 @@ func New(authenticator auth.Authenticator) (*Daemon, error) {
 
 func (daemon *Daemon) Start() error {
 	r := mux.NewRouter()
-	// r.PathPrefix("/").Handler(http.FileServer(http.Dir("static")))
 	r.HandleFunc("/v1/authentication", daemon.AuthenticationHandler).Methods("POST")
 	r.HandleFunc("/v1/logout", daemon.LogoutHandler).Methods("POST")
 	r.HandleFunc("/v1/validation", daemon.ValidationHandler)
+	r.PathPrefix("/").Handler(http.FileServer(http.Dir(".")))
 
 	err := http.ListenAndServe(":8000", r)
 	if err != nil {

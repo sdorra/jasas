@@ -10,6 +10,17 @@ import (
 	"github.com/sdorra/jasas/daemon"
 )
 
+var (
+	// Version of the application
+	Version string
+
+	// BuildTime of the application
+	BuildTime string
+
+	// CommitID git sha1 hash
+	CommitID string
+)
+
 func exists(passwd *auth.Passwd) cli.Command {
 	return cli.Command{
 		Name:    "exists",
@@ -88,15 +99,30 @@ func daemonCmd(passwd *auth.Passwd) cli.Command {
 	}
 }
 
+func versionCmd() cli.Command {
+	return cli.Command{
+		Name:  "version",
+		Usage: "Prints version informations",
+		Action: func(c *cli.Context) error {
+			fmt.Println("Version   :", Version)
+			fmt.Println("Build-Time:", BuildTime)
+			fmt.Println("Commit    :", CommitID)
+			return nil
+		},
+	}
+}
+
 func main() {
 	pass := auth.NewPasswd()
 
 	app := cli.NewApp()
 	app.Name = "jasas"
 	app.Usage = "Just another small authentication server"
+	app.Version = Version
 	app.Commands = []cli.Command{
 		passwdCmd(pass),
 		daemonCmd(pass),
+		versionCmd(),
 	}
 
 	app.Run(os.Args)
