@@ -4,6 +4,8 @@ import { Reducer } from './reducer';
 import {
   AuthenticationForm,
 
+  REGISTER_REDIRECT_URI,
+
   FETCH_STATE_PENDING,
   FETCH_STATE_FULFILLED,
   FETCH_STATE_REJECTED,
@@ -24,7 +26,8 @@ interface AuthenticationState {
   loading: boolean
   authenticated: boolean
   username?: string
-  message?: string,
+  message?: string
+  redirectUri?: string
   form: AuthenticationForm
 }
 
@@ -42,6 +45,11 @@ const INITIAL_STATE: AuthenticationState = {
 
 let authenticationReducer: Reducer<AuthenticationState> = (state = INITIAL_STATE, action: Action = EmptyAction) => {
   switch (action.type) {
+    case REGISTER_REDIRECT_URI:
+      return Object.assign({}, state, {
+          redirectUri: action.payload
+        });
+
     case AUTHENTICATE_PENDING:
     case FETCH_STATE_PENDING:
       return Object.assign({}, state, {
@@ -52,6 +60,9 @@ let authenticationReducer: Reducer<AuthenticationState> = (state = INITIAL_STATE
       });
 
     case AUTHENTICATE_FULFILLED:
+      if (state.redirectUri) {
+        window.location.href = state.redirectUri;
+      }
       return Object.assign({}, state, {
         loading: false, 
         authenticated: true, 
@@ -61,6 +72,9 @@ let authenticationReducer: Reducer<AuthenticationState> = (state = INITIAL_STATE
       }, action.payload.data);
       
     case FETCH_STATE_FULFILLED:
+      if (state.redirectUri) {
+        window.location.href = state.redirectUri;
+      }
       return Object.assign({}, state, {
         loading: false, 
         authenticated: true, 

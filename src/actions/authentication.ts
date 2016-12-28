@@ -6,6 +6,15 @@ const PENDING_SUFFIX = '_PENDING';
 const FULFILLED_SUFFIX = '_FULFILLED';
 const REJECTED_SUFFIX = '_REJECTED';
 
+export const REGISTER_REDIRECT_URI = 'REGISTER_REDIRECT_URI';
+
+export function registerRedirectUri(uri: string): Action {
+  return {
+    type: REGISTER_REDIRECT_URI,
+    payload: uri
+  };
+}
+
 const FETCH_STATE = 'FETCH_STATE';
 export const FETCH_STATE_PENDING = FETCH_STATE + PENDING_SUFFIX;
 export const FETCH_STATE_FULFILLED = FETCH_STATE + FULFILLED_SUFFIX;
