@@ -28,3 +28,6 @@ $(BINARY):
 
 docker: WEBUI $(BINARY)
 	@docker build -t $(IMAGE):$(VERSION) .
+
+push: docker
+	@docker push $(IMAGE):$(VERSION)
