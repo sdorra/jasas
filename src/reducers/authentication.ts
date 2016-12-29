@@ -60,9 +60,6 @@ let authenticationReducer: Reducer<AuthenticationState> = (state = INITIAL_STATE
       });
 
     case AUTHENTICATE_FULFILLED:
-      if (state.redirectUri) {
-        window.location.href = state.redirectUri;
-      }
       return Object.assign({}, state, {
         loading: false, 
         authenticated: true, 
@@ -72,9 +69,6 @@ let authenticationReducer: Reducer<AuthenticationState> = (state = INITIAL_STATE
       }, action.payload.data);
       
     case FETCH_STATE_FULFILLED:
-      if (state.redirectUri) {
-        window.location.href = state.redirectUri;
-      }
       return Object.assign({}, state, {
         loading: false, 
         authenticated: true, 

@@ -14,6 +14,7 @@ interface StateProps {
   username: string;
   message: string;
   form: AuthenticationForm;
+  redirectUri?: string;
 }
 
 interface DispatchProps {
@@ -31,7 +32,8 @@ function mapStateToProps(state: any) {
     loading: state.auth.loading,
     authenticated: state.auth.authenticated,
     username: state.auth.username,
-    form: state.auth.form
+    form: state.auth.form,
+    redirectUri: state.auth.redirectUri
   }
 }
 
@@ -47,6 +49,10 @@ function mapDispatchToProps(dispatch: any) {
 export class Container extends React.Component<ContainerProps, any> {
 
   render() {
+    if (this.props.authenticated && this.props.redirectUri) {
+      window.location.href = this.props.redirectUri;
+    }
+
     let body;
     if (this.props.loading) {
       body = <p>Loading ...</p>;
