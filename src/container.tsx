@@ -2,11 +2,10 @@ import * as React from 'react';
 import { LoginForm } from './login-form';
 import { Welcome } from './welcome';
 
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { State } from './types/state';
-import { AuthenticationForm } from './types/authentication-form';
-import { AuthenticationState } from './types/authentication-state';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { AuthenticationForm, AuthenticationState, State } from './types';
 import { authenticate, logout, changeForm } from './actions/authentication'
 
 interface DispatchProps {

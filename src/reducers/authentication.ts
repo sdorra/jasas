@@ -1,6 +1,5 @@
 import { Action, EmptyAction } from '../actions/action';
-import { AuthenticationForm } from '../types/authentication-form';
-import { AuthenticationState } from '../types/authentication-state';
+import { AuthenticationForm, AuthenticationState } from '../types';
 import { Reducer } from './reducer';
 
 import {
@@ -71,7 +70,7 @@ let authenticationReducer: Reducer<AuthenticationState> = (state = INITIAL_STATE
         loading: false, 
         authenticated: false, 
         error: true, 
-        message: "authentication failed"
+        message: 'authentication failed'
       });
 
     case FETCH_STATE_REJECTED:
@@ -101,7 +100,7 @@ let authenticationReducer: Reducer<AuthenticationState> = (state = INITIAL_STATE
       return Object.assign({}, state, {
         loading: false, 
         error: true, 
-        message: "logout failed"
+        message: 'logout failed'
       });
 
     // form changes
