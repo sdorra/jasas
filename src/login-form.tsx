@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AuthenticationForm } from './actions/authentication';
+import { AuthenticationForm } from './types/authentication-form';
 
 interface Props {
   form: AuthenticationForm

@@ -1,5 +1,5 @@
 import { Action } from './action';
-
+import { AuthenticationForm } from '../types/authentication-form';
 import * as axios from 'axios';
 
 const PENDING_SUFFIX = '_PENDING';
@@ -28,11 +28,6 @@ export function fetchState(): Action {
 }
 
 export const CHANGE_FORM = 'CHANGE_FORM';
-
-export interface AuthenticationForm {
-  username: string
-  password: string
-}
 
 export function changeForm(form: AuthenticationForm): Action {
   return {

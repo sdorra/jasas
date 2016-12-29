@@ -4,18 +4,10 @@ import { Welcome } from './welcome';
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
-import { authenticate, logout, changeForm, AuthenticationForm } from './actions/authentication'
-
-interface StateProps {
-  loading: boolean;
-  authenticated: boolean;
-  error: boolean;
-  username: string;
-  message: string;
-  form: AuthenticationForm;
-  redirectUri?: string;
-}
+import { State } from './types/state';
+import { AuthenticationForm } from './types/authentication-form';
+import { AuthenticationState } from './types/authentication-state';
+import { authenticate, logout, changeForm } from './actions/authentication'
 
 interface DispatchProps {
   authenticate(username: string, password: string): void;
@@ -23,19 +15,7 @@ interface DispatchProps {
   logout(): void;
 }
 
-type ContainerProps = StateProps & DispatchProps;
-
-function mapStateToProps(state: any) {
-  return {
-    error: state.auth.error,
-    message: state.auth.message,
-    loading: state.auth.loading,
-    authenticated: state.auth.authenticated,
-    username: state.auth.username,
-    form: state.auth.form,
-    redirectUri: state.auth.redirectUri
-  }
-}
+type ContainerProps = AuthenticationState & DispatchProps;
 
 function mapDispatchToProps(dispatch: any) {
   return {
@@ -45,7 +25,9 @@ function mapDispatchToProps(dispatch: any) {
   }
 }
 
-@connect<StateProps, DispatchProps, ContainerProps>(mapStateToProps, mapDispatchToProps)
+@connect<AuthenticationState, DispatchProps, ContainerProps>(
+  (state: State) => state.auth, mapDispatchToProps
+)
 export class Container extends React.Component<ContainerProps, any> {
 
   render() {

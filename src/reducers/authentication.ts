@@ -1,9 +1,9 @@
 import { Action, EmptyAction } from '../actions/action';
+import { AuthenticationForm } from '../types/authentication-form';
+import { AuthenticationState } from '../types/authentication-state';
 import { Reducer } from './reducer';
 
 import {
-  AuthenticationForm,
-
   REGISTER_REDIRECT_URI,
 
   FETCH_STATE_PENDING,
@@ -20,16 +20,6 @@ import {
   LOGOUT_FULFILLED,
   LOGOUT_REJECTED
 } from '../actions/authentication';
-
-interface AuthenticationState {
-  error: boolean
-  loading: boolean
-  authenticated: boolean
-  username?: string
-  message?: string
-  redirectUri?: string
-  form: AuthenticationForm
-}
 
 const EMTPY_FORM: AuthenticationForm = {
   username: '',
