@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { LoginForm } from './login-form';
 import { Welcome } from './welcome';
+import { Loading } from './loading';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -36,7 +37,7 @@ export class Container extends React.Component<ContainerProps, any> {
 
     let body;
     if (this.props.loading) {
-      body = <p>Loading ...</p>;
+      body = <Loading />;
     } else if (this.props.authenticated) {
       body = <Welcome username={this.props.username} logout={this.props.logout} />;
     } else {
