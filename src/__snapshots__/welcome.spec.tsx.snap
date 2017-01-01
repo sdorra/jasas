@@ -1,0 +1,13 @@
+exports[`welcome should render text and button 1`] = `
+<div
+  className="welcome">
+  <p>
+    Welcome 
+    tricia
+  </p>
+  <button
+    onClick={[Function]}>
+    Logout
+  </button>
+</div>
+`;
