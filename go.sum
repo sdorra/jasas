@@ -1,0 +1,15 @@
+github.com/codegangsta/cli v1.19.1 h1:+wkU9+nidApJ051CVhVGnj5li64qOfLPz7eZMn2DPXw=
+github.com/codegangsta/cli v1.19.1/go.mod h1:/qJNoX69yVSKu5o4jLyXAENLRyk1uhi7zkbQ3slBdOA=
+github.com/gorilla/context v1.1.1 h1:AWwleXJkX/nhcU9bZSnZoi3h/qGYqQAGhq6zZe/aQW8=
+github.com/gorilla/context v1.1.1/go.mod h1:kBGZzfjB9CEq2AlWe17Uuf7NDRt0dE0s8S51q0aT7Yg=
+github.com/gorilla/mux v0.0.0-20160317213430-0eeaf8392f5b h1:4OcRAUBSclcjVrZ8n7/pl9iWUx7JXw4Mj6bww0ZlBhE=
+github.com/gorilla/mux v0.0.0-20160317213430-0eeaf8392f5b/go.mod h1:1lud6UwP+6orDFRuTfBEV8e9/aOM/c4fVVCaMa2zaAs=
+github.com/pkg/errors v0.8.0 h1:WdK/asTD0HN+q6hsWO3/vpuAkAr+tw6aNJNDFFf0+qw=
+github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+github.com/satori/go.uuid v1.1.0/go.mod h1:dA0hQrYB0VpLJoorglMZABFdXlWrHn1NEOzdhQKdks0=
+github.com/twinj/uuid v0.1.0 h1:m4NyLH5MReF8zWQegEXvSTpnV6A7svVLG5FbZql6OAA=
+github.com/twinj/uuid v0.1.0/go.mod h1:mMgcE1RHFUFqe5AfiwlINXisXfDGro23fWdPUfOMjRY=
+golang.org/x/crypto v0.0.0-20161221235747-f6b343c37ca8 h1:zIHAgCmsFRg+vGki4hNgH4OcldCIRM+T5OtdNTAIgeQ=
+golang.org/x/crypto v0.0.0-20161221235747-f6b343c37ca8/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
+gopkg.in/square/go-jose.v2 v2.0.1 h1:gZT3DXbSZ9zWcsWSWmwhVNaw1AUugoSuiTMKtYFYQV8=
+gopkg.in/square/go-jose.v2 v2.0.1/go.mod h1:M9dMgbHiYLoDGQrXy7OpJDJWiKiU//h+vD76mk0e1AI=
