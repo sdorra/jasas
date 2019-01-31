@@ -17,8 +17,6 @@ type Page struct {
 }
 
 func (daemon *Daemon) RootPage(w http.ResponseWriter, r *http.Request) {
-	log.Println("root page")
-
 	username := daemon.authenticationFromCookie(r)
 
 	if username != "" {
@@ -117,15 +115,11 @@ func (daemon *Daemon) renderLoginPage(w http.ResponseWriter) {
 }
 
 func handleLoginFailure(w http.ResponseWriter, username string, err error, statusCode int) {
-	log.Println("handle login failure", err)
-
 	tmpl := parseTemplate("login")
 
 	model := createBaseModel()
 	model["Error"] = err
 	model["Username"] = username
-
-	log.Println(model)
 
 	w.WriteHeader(statusCode)
 	tmpl.ExecuteTemplate(w, "layout", model)

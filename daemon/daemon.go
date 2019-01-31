@@ -67,13 +67,11 @@ func New(authenticator auth.Authenticator) (*Daemon, error) {
 func (daemon *Daemon) Start() error {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/v1/authentication", daemon.AuthenticationHandler)
-	r.HandleFunc("/v1/validation", daemon.ValidationHandler)
-
 	r.Handle("/", http.RedirectHandler("login", http.StatusFound))
 	r.HandleFunc("/login", daemon.RootPage).Methods("GET")
 	r.HandleFunc("/login", daemon.Login).Methods("POST")
 	r.HandleFunc("/logout", daemon.Logout).Methods("GET")
+	r.HandleFunc("/validate", daemon.ValidationHandler)
 
 	err := http.ListenAndServe(":8000", r)
 	if err != nil {
