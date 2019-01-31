@@ -68,11 +68,12 @@ func (daemon *Daemon) Start() error {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/v1/authentication", daemon.AuthenticationHandler)
-	r.HandleFunc("/v1/logout", daemon.LogoutHandler).Methods("POST")
 	r.HandleFunc("/v1/validation", daemon.ValidationHandler)
 
-	r.HandleFunc("/", daemon.RootPage).Methods("GET")
-	r.HandleFunc("/", daemon.Login).Methods("POST")
+	r.Handle("/", http.RedirectHandler("login", http.StatusFound))
+	r.HandleFunc("/login", daemon.RootPage).Methods("GET")
+	r.HandleFunc("/login", daemon.Login).Methods("POST")
+	r.HandleFunc("/logout", daemon.Logout).Methods("GET")
 
 	err := http.ListenAndServe(":8000", r)
 	if err != nil {

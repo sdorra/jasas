@@ -57,24 +57,27 @@
     .container input[type=text], .container input[type=password] {
       background: #f2f2f2;
       margin: 0 0 15px;
-      box-sizing: border-box
+      box-sizing: border-box;
     }
 
     .container input,
-    .container button {
+    .container button,
+    .container a {
       font-family: Roboto, sans-serif;
       outline: 0;
       width: 100%;
+      min-width: 240px;
       border: 0;
       padding: 15px;
-      font-size: 14px
+      font-size: 14px;
+      text-decoration: none;
+      display: block;
+      box-sizing: border-box;
     }
 
     .btn-primary {
       text-transform: uppercase;
       color: #fff;
-      -webkit-transition: all .3 ease;
-      transition: all .3 ease;
       cursor: pointer
     }
 

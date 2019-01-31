@@ -1,8 +1,8 @@
 {{ define "content" }}
 
   <div class="welcome">
-    <p>Welcome Benutzer</p>
-    <button class="btn-primary">Logout</button>
+    <p>Welcome {{.Username}}</p>
+    <a class="btn-primary" href="logout">Logout</a>
   </div>
 
 {{ end }}

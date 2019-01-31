@@ -86,6 +86,22 @@ func (daemon *Daemon) Login(w http.ResponseWriter, r *http.Request) {
 	daemon.renderWelcomePage(w, username)
 }
 
+func (daemon *Daemon) Logout(w http.ResponseWriter, r *http.Request) {
+	cookie := http.Cookie{
+		Name:  daemon.CookieName,
+		Path:  "/",
+		Value: "deleted",
+		// Domain:   daemon.Domain,
+		Expires:  time.Date(1970, time.January, 1, 1, 0, 0, 0, time.UTC),
+		HttpOnly: true,
+	}
+
+	http.SetCookie(w, &cookie)
+
+	tmpl := parseTemplate("logout")
+	tmpl.ExecuteTemplate(w, "layout", createBaseModel())
+}
+
 func (daemon *Daemon) renderWelcomePage(w http.ResponseWriter, username string) {
 	tmpl := parseTemplate("welcome")
 

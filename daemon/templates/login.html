@@ -6,7 +6,7 @@
   </p>
   {{ end }}
 
-  <form method="POST">
+  <form method="POST" action="login">
     <input type="text" name="username" placeholder="username" value="{{ .Username }}" autofocus>
     <input type="password" name="password" placeholder="password" value="">
     <input type="submit" value="login" class="btn-primary">
