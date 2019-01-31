@@ -1,0 +1,121 @@
+{{ define "layout" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ .PageTitle }}</title>
+  <style type="text/css">
+    @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+    body {
+      font-family: Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale
+    }
+
+    .blue {
+      background: #5185b8;
+      background: -webkit-linear-gradient(right, #4373a3, #5185b8);
+      background: linear-gradient(270deg, #4373a3, #5185b8);
+    }
+
+    .green {
+      background: #76b852;
+      background: -webkit-linear-gradient(right, #76b852, #8dc26f);
+      background: linear-gradient(270deg, #76b852, #8dc26f);
+    }
+
+    .red {
+      background: #ef3b3a;
+      background: -webkit-linear-gradient(right, #d41111, #ef3b3a);
+      background: linear-gradient(270deg, #d41111, #ef3b3a);
+    }
+
+    .app {
+      width: 360px;
+      padding: 8% 0 0;
+      margin: auto
+    }
+
+    .error {
+      color: #ef3b3a
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background: #fff;
+      max-width: 360px;
+      margin: 0 auto 100px;
+      padding: 45px;
+      text-align: center;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, .2), 0 5px 5px 0 rgba(0, 0, 0, .24)
+    }
+
+    .container input[type=text], .container input[type=password] {
+      background: #f2f2f2;
+      margin: 0 0 15px;
+      box-sizing: border-box
+    }
+
+    .container input,
+    .container button {
+      font-family: Roboto, sans-serif;
+      outline: 0;
+      width: 100%;
+      border: 0;
+      padding: 15px;
+      font-size: 14px
+    }
+
+    .btn-primary {
+      text-transform: uppercase;
+      color: #fff;
+      -webkit-transition: all .3 ease;
+      transition: all .3 ease;
+      cursor: pointer
+    }
+
+    .green .btn-primary {
+      background: #4caf50;
+    }
+
+    .green .btn-primary:active .btn-primary:focus,
+    .green .btn-primary:hover {
+      background: #76b852
+    }
+
+    .red .btn-primary {
+      background: #ef3b3a;
+    }
+
+    .red .btn-primary:active .btn-primary:focus,
+    .red .btn-primary:hover {
+      background: #d41111
+    }
+
+    .blue .btn-primary {
+      background: #5185b8;
+    }
+
+    .blue .btn-primary:active .btn-primary:focus,
+    .blue .btn-primary:hover {
+      background: #4373a3
+    }
+  </style>
+</head>
+<body class="{{ if .Error }}red{{else if .Username}}green{{else}}blue{{end}}">
+<div class="app">
+  <div class="container">
+    <h1>{{ .Page.Title }}</h1>
+    <p>{{ .Page.SubTitle }}</p>
+
+    {{ template "content" . }}
+
+  </div>
+</div>
+</body>
+</html>
+{{ end }}

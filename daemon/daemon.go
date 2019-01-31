@@ -13,7 +13,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sdorra/jasas/auth"
 	"github.com/twinj/uuid"
-	jose "gopkg.in/square/go-jose.v2"
+	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/square/go-jose.v2/jwt"
 )
 
@@ -66,10 +66,13 @@ func New(authenticator auth.Authenticator) (*Daemon, error) {
 
 func (daemon *Daemon) Start() error {
 	r := mux.NewRouter()
-	r.HandleFunc("/v1/authentication", daemon.AuthenticationHandler).Methods("POST")
+
+	r.HandleFunc("/v1/authentication", daemon.AuthenticationHandler)
 	r.HandleFunc("/v1/logout", daemon.LogoutHandler).Methods("POST")
 	r.HandleFunc("/v1/validation", daemon.ValidationHandler)
-	r.PathPrefix("/").Handler(http.FileServer(http.Dir(".")))
+
+	r.HandleFunc("/", daemon.RootPage).Methods("GET")
+	r.HandleFunc("/", daemon.Login).Methods("POST")
 
 	err := http.ListenAndServe(":8000", r)
 	if err != nil {
@@ -112,11 +115,10 @@ func (daemon *Daemon) CreateToken(subject string) (string, error) {
 		return "", errors.Wrap(err, "failed to create jwt signer")
 	}
 
-	uuid := uuid.NewV4()
 	now := time.Now()
 	expires := now.Add(24 * time.Hour)
 	cl := jwt.Claims{
-		ID:       uuid.String(),
+		ID:       uuid.NewV4().String(),
 		Subject:  subject,
 		IssuedAt: jwt.NewNumericDate(now),
 		Expiry:   jwt.NewNumericDate(expires),
