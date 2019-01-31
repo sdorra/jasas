@@ -16,17 +16,13 @@ LDFLAGS=-ldflags "-X main.Version=${VERSION} -X main.BuildTime=${BUILD_TIME} -X 
 
 .DEFAULT_GOAL: $(BINARY)
 
-WEBUI:
-	@echo "building webui ..."
-	@yarn run build-prod
-
-$(BINARY): 
+$(BINARY):
 	@echo "building go binary ..."
 	@mkdir -p $(DIST_DIR) $(BINARY_DIR)
 	@GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -a -installsuffix cgo $(LDFLAGS) -o $(DIST_DIR)/$(BINARY)
 	@echo "... binary can be found at $(DIST_DIR)/$(BINARY)"
 
-docker: WEBUI $(BINARY)
+docker:
 	@docker build -t $(IMAGE):$(VERSION) .
 
 push: docker
