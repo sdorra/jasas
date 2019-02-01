@@ -13,6 +13,9 @@ COMMIT_ID=`git rev-parse HEAD`
 
 PACKAGES=$(shell go list ./... | grep -v /vendor/)
 
+GITHUB_USER="sdorra"
+GITHUB_REPO="jasas"
+
 # Setup the -ldflags option for go build here, interpolate the variable values
 LDFLAGS=-ldflags "-X main.Version=${VERSION} -X main.BuildTime=${BUILD_TIME} -X main.CommitID=${COMMIT_ID}"
 
@@ -25,8 +28,31 @@ build: $(GOPATH)/bin/gox
 	@mkdir -p $(DIST_DIR)
 	@gox -osarch ${OSARCH} -output "dist/${BINARY}_{{.OS}}_{{.Arch}}" ./...
 	@cd $(DIST_DIR); shasum -a 256 * > ${BINARY}.sha256sums
-	@cd $(DIST_DIR);  gpg --armor --detach-sign jasas.sha256sums
+	@cd $(DIST_DIR); gpg --armor --detach-sign jasas.sha256sums
 	@echo "... binaries can be found at $(DIST_DIR)"
+
+.PHONY: release
+release: build push
+	@echo "creating release ..."
+	@git tag -s -m "release v${VERSION}" v${VERSION}
+	@git push origin master --tags
+	@github-release release \
+  		--user ${GITHUB_USER} \
+  		--repo ${GITHUB_REPO} \
+  		--tag v${VERSION} \
+  		--name v${VERSION} \
+  		--description "release version ${VERSION}"
+	@cd ${DIST_DIR}; ls -1 | xargs -n1 -I{} -- \
+	 									github-release upload \
+																	--user ${GITHUB_USER} \
+																	--repo ${GITHUB_REPO} \
+																	--tag v${VERSION} \
+																	--name {} \
+																	--file {}
+
+$(GOPATH)/bin/github-release:
+	@echo installing github-release
+	@go get github.com/aktau/github-release
 
 $(GOPATH)/bin/gox:
 	@echo installing gox
@@ -42,4 +68,5 @@ push: docker
 
 .PHONY: clean
 clean:
+	@rm -f templates/templates_prod.go
 	@rm -rf ${DIST_DIR}
