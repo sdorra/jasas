@@ -2,6 +2,8 @@ package daemon
 
 import (
 	"github.com/pkg/errors"
+	"github.com/sdorra/jasas/templates"
+	"github.com/shurcooL/httpfs/html/vfstemplate"
 	"html/template"
 	"log"
 	"net/http"
@@ -9,7 +11,7 @@ import (
 	"time"
 )
 
-var templatePath = path.Join("daemon", "templates")
+var templatePath = "templates"
 
 type Page struct {
 	Title    string
@@ -42,8 +44,6 @@ func (daemon *Daemon) authenticationFromCookie(r *http.Request) string {
 }
 
 func (daemon *Daemon) Login(w http.ResponseWriter, r *http.Request) {
-	log.Println("login")
-
 	err := r.ParseForm()
 	if err != nil {
 		handleLoginFailure(w, "", err, 400)
@@ -138,5 +138,10 @@ func parseTemplate(name string) *template.Template {
 	layout := path.Join(templatePath, "layout.html")
 	page := path.Join(templatePath, name+".html")
 
-	return template.Must(template.ParseFiles(layout, page))
+	template, err := vfstemplate.ParseFiles(templates.Templates, nil, layout, page)
+	if err != nil {
+		log.Fatal("failed to parse template", err)
+	}
+
+	return template
 }
