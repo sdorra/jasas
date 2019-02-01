@@ -17,7 +17,7 @@ GITHUB_USER="sdorra"
 GITHUB_REPO="jasas"
 
 # Setup the -ldflags option for go build here, interpolate the variable values
-LDFLAGS=-ldflags "-X main.Version=${VERSION} -X main.BuildTime=${BUILD_TIME} -X main.CommitID=${COMMIT_ID}"
+LDFLAGS=-"-X main.Version=${VERSION} -X main.BuildTime=${BUILD_TIME} -X main.CommitID=${COMMIT_ID}"
 
 .DEFAULT_GOAL: build
 
@@ -26,7 +26,7 @@ build: $(GOPATH)/bin/gox
 	@echo "building go binaries ..."
 	@go generate
 	@mkdir -p $(DIST_DIR)
-	@gox -osarch ${OSARCH} -output "dist/${BINARY}_{{.OS}}_{{.Arch}}" ./...
+	@gox -osarch ${OSARCH} -ldflags ${LDFLAGS} -output "dist/${BINARY}_{{.OS}}_{{.Arch}}" ./...
 	@cd $(DIST_DIR); shasum -a 256 * > ${BINARY}.sha256sums
 	@cd $(DIST_DIR); gpg --armor --detach-sign jasas.sha256sums
 	@echo "... binaries can be found at $(DIST_DIR)"
