@@ -32,7 +32,7 @@ build: $(GOPATH)/bin/gox
 	@echo "... binaries can be found at $(DIST_DIR)"
 
 .PHONY: release
-release: build push
+release: $(GOPATH)/bin/github-release build push
 	@echo "creating release ..."
 	@git tag -s -m "release v${VERSION}" v${VERSION}
 	@git push origin master --tags
