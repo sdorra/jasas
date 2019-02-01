@@ -112,6 +112,8 @@ Temporary Items
 # End of https://www.gitignore.io/api/go,node,osx
 
 # special stuff
+.idea
 passwd
 *.jwk
 dist
+templates/templates_prod.go
